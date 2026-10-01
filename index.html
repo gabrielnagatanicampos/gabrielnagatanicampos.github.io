@@ -89,6 +89,7 @@
         .delay-3 { animation-delay: 0.3s; }
         .delay-4 { animation-delay: 0.4s; }
         .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
 
         @keyframes fadeIn {
             to {
@@ -260,6 +261,85 @@
 
         .link-btn:hover i {
             transform: scale(1.1);
+        }
+
+        /* Featured Link (Telegram) */
+        .featured-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 20px;
+            background: linear-gradient(135deg, rgba(22, 119, 255, 0.1), rgba(56, 189, 248, 0.05));
+            border: 1px solid var(--accent-primary);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-main);
+            box-shadow: 0 4px 20px rgba(22, 119, 255, 0.15), inset 0 0 0 1px rgba(56, 189, 248, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .featured-link::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.2), transparent);
+            transform: skewX(-20deg);
+            animation: shine 4s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        .featured-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(22, 119, 255, 0.25), inset 0 0 0 1px rgba(56, 189, 248, 0.3);
+            border-color: var(--accent-cyan);
+            background: linear-gradient(135deg, rgba(22, 119, 255, 0.15), rgba(56, 189, 248, 0.1));
+        }
+
+        .featured-icon {
+            font-size: 2.2rem;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.4));
+        }
+
+        .featured-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .featured-text h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: -0.01em;
+        }
+
+        .featured-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .featured-arrow {
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+            transition: var(--transition);
+        }
+
+        .featured-link:hover .featured-arrow {
+            transform: translateX(4px);
         }
 
         /* Sections Common */
@@ -593,8 +673,20 @@
             </a>
         </section>
 
+        <!-- Destaque: Canal Telegram -->
+        <a href="https://t.me/nagatanitech" target="_blank" class="featured-link fade-in delay-2">
+            <div class="featured-icon">
+                <i class="ph-fill ph-telegram-logo"></i>
+            </div>
+            <div class="featured-text">
+                <h3>Nagatani Tech | Setup & Ofertas</h3>
+                <p>Canal exclusivo com promoções de tecnologia, hardware e equipamentos que utilizo.</p>
+            </div>
+            <i class="ph ph-arrow-right featured-arrow"></i>
+        </a>
+
         <!-- Sobre -->
-        <section class="about-section fade-in delay-2">
+        <section class="about-section fade-in delay-3">
             <div class="section-header">
                 <i class="ph ph-user"></i>
                 <h3>Sobre</h3>
@@ -605,7 +697,7 @@
         </section>
 
         <!-- Tecnologias -->
-        <section class="tech-section fade-in delay-3">
+        <section class="tech-section fade-in delay-4">
             <div class="section-header">
                 <i class="ph ph-code"></i>
                 <h3>Tecnologias</h3>
@@ -645,7 +737,7 @@
         </section>
 
         <!-- Projetos -->
-        <section class="projects-section fade-in delay-4">
+        <section class="projects-section fade-in delay-5">
             <div class="section-header">
                 <i class="ph ph-folder-open"></i>
                 <h3>Projetos</h3>
@@ -710,7 +802,7 @@
         </section>
 
         <!-- Reconhecimentos -->
-        <section class="recognitions-section fade-in delay-5">
+        <section class="recognitions-section fade-in delay-6">
             <div class="section-header">
                 <i class="ph ph-medal"></i>
                 <h3>Reconhecimentos & Cursos</h3>
@@ -724,7 +816,7 @@
         </section>
 
         <!-- Footer -->
-        <footer class="fade-in delay-5">
+        <footer class="fade-in delay-6">
             <div class="footer-line"></div>
             <div class="footer-content">
                 <span>Gabriel Nagatani Campos © 2026</span>
