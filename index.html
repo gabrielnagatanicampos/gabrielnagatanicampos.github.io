@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Nagatani Campos | Software Engineering & Journey</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        :root {
+            /* Palette Setup */
+            --bg-main: #050B14;
+            --bg-secondary: #081525;
+            --bg-card: #0D1F35;
+            
+            --accent-primary: #1677FF;
+            --accent-cyan: #38BDF8;
+            
+            --text-main: #EAF2FF;
+            --text-muted: #8FA6C0;
+            --text-dark: #4A6583;
+            
+            --border-subtle: rgba(56, 189, 248, 0.15);
+            --border-hover: rgba(56, 189, 248, 0.35);
+            
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --radius-full: 9999px;
+            
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Interactive Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 1; /* Opacity controlled inside JS */
+            pointer-events: none;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 60px 24px 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 56px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .avatar-wrap {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .avatar {
+            width: 88px;
+            height: 88px;
+            border-radius: 30%;
+            object-fit: cover;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 0 20px rgba(22, 119, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .avatar-wrap:hover .avatar {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.2);
+            transform: scale(1.02);
+        }
+
+        .availability {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(22, 119, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            margin-bottom: 24px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-cyan);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .status-dot::after {
+            content: '';
+            position: absolute;
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            border: 1px solid var(--accent-cyan);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .status-text {
+            font-size: 0.75rem;
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            letter-spacing: 0.02em;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .hero-quote {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 28px;
+            max-width: 95%;
+            line-height: 1.6;
+            border-left: 2px solid var(--border-hover);
+            padding-left: 16px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .hero-quote footer {
+            font-style: normal;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            margin-top: 8px;
+            font-family: var(--font-mono);
+        }
+
+        .info-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .info-badge {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: var(--bg-secondary);
+            padding: 6px 10px;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+            border: 1px solid transparent;
+        }
+
+        .info-badge.highlight {
+            color: var(--accent-cyan);
+            background: rgba(56, 189, 248, 0.05);
+            border-color: var(--border-subtle);
+        }
+
+        /* Links Grid */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .link-btn i {
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            transition: var(--transition);
+        }
+
+        .link-btn:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(13, 31, 53, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .link-btn:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Sections Common */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section-header i {
+            font-size: 1.25rem;
+            color: var(--accent-primary);
+        }
+
+        .section-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        /* About Section */
+        .about-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Tech Section */
+        .tech-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .tech-group h4 {
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .tech-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-chips span {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .tech-chips span:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(56, 189, 248, 0.05);
+            transform: translateY(-1px);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .project-card {
+            display: block;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(22, 119, 255, 0.08), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            background: var(--bg-card);
+            box-shadow: 0 10px 30px rgba(5, 11, 20, 0.8);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .project-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .project-header h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .status-badge {
+            font-size: 0.65rem;
+            font-family: var(--font-mono);
+            background: rgba(22, 119, 255, 0.1);
+            color: var(--accent-cyan);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-subtle);
+            white-space: nowrap;
+        }
+
+        .project-header i {
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-header i {
+            color: var(--accent-cyan);
+            transform: translate(2px, -2px);
+        }
+
+        .project-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .project-tech span {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent-cyan);
+            background: rgba(56, 189, 248, 0.05);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* Recognitions Section */
+        .recognitions-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .recognitions-list li {
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .recognitions-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        .recognitions-list li strong {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .footer-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+            margin-bottom: 24px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            font-family: var(--font-mono);
+        }
+
+        .footer-content a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-content a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .footer-journey-element {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            opacity: 0.6;
+        }
+
+        .route-point {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent-primary);
+            letter-spacing: 0.05em;
+        }
+
+        .route-line {
+            flex: 1;
+            max-width: 60px;
+            height: 1px;
+            background: repeating-linear-gradient(90deg, var(--text-dark) 0, var(--text-dark) 4px, transparent 4px, transparent 8px);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px 60px;
+                gap: 48px;
+            }
+
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1rem; }
+            
+            .links-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .project-title-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Interactive Subtly Animated Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <main class="container">
+        
+        <!-- Hero Section -->
+        <header class="hero fade-in">
+            <div class="avatar-wrap">
+                <img src="profile.jpeg" alt="Gabriel Nagatani Campos" class="avatar" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\' style=\'background:%230D1F35\'><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'32\' fill=\'%2338BDF8\'>GN</text></svg>'">
+            </div>
+            
+            <div class="availability">
+                <span class="status-dot"></span>
+                <span class="status-text">Disponível para oportunidades</span>
+            </div>
+            
+            <h1>GABRIEL NAGATANI CAMPOS</h1>
+            <h2>Estudante de Engenharia de Software</h2>
+            
+            <blockquote class="hero-quote">
+                "I don't wait to understand everything before I build. I build to understand."
+                <footer>Gabriel Nagatani Campos</footer>
+            </blockquote>
+
+            <div class="info-badges">
+                <span class="info-badge">ENGENHARIA DE SOFTWARE</span>
+                <span class="info-badge">UMC</span>
+                <span class="info-badge">MOGI DAS CRUZES, SP</span>
+                <span class="info-badge highlight">PYTHON • SQL • DADOS</span>
+            </div>
+        </header>
+
+        <!-- Links Principais -->
+        <section class="links-grid fade-in delay-1">
+            <a href="https://github.com/gabrielnagatanicampos" target="_blank" class="link-btn">
+                <i class="ph ph-github-logo"></i> GitHub
+            </a>
+            <a href="https://linkedin.com/in/gabriel-nagatani" target="_blank" class="link-btn">
+                <i class="ph ph-linkedin-logo"></i> LinkedIn
+            </a>
+            <a href="#" class="link-btn">
+                <i class="ph ph-globe"></i> Portfólio
+            </a>
+            <a href="https://www.instagram.com/nagatani.dev/" target="_blank" class="link-btn">
+                <i class="ph ph-instagram-logo"></i> Instagram
+            </a>
+            <a href="https://www.youtube.com/@NagataniDev" target="_blank" class="link-btn" style="grid-column: 1 / -1; max-width: 100%;">
+                <i class="ph ph-youtube-logo"></i> YouTube
+            </a>
+        </section>
+
+        <!-- Sobre -->
+        <section class="about-section fade-in delay-2">
+            <div class="section-header">
+                <i class="ph ph-user"></i>
+                <h3>Sobre</h3>
+            </div>
+            <p class="about-text">
+                Estudante de Engenharia de Software com foco em Engenharia de Dados. Trabalho com Python, SQL e automações para transformar dados em soluções reais. Tenho interesse especial em dados financeiros, o que levou ao CPA 20 e a projetos como o Invest System e o Data Warehouse de Vendas.
+            </p>
+        </section>
+
+        <!-- Tecnologias -->
+        <section class="tech-section fade-in delay-3">
+            <div class="section-header">
+                <i class="ph ph-code"></i>
+                <h3>Tecnologias</h3>
+            </div>
+            
+            <div class="tech-group">
+                <h4>Dados & Engenharia</h4>
+                <div class="tech-chips">
+                    <span>Python</span>
+                    <span>SQL</span>
+                    <span>SQL Server</span>
+                    <span>Pandas</span>
+                    <span>ETL</span>
+                    <span>Data Warehouse</span>
+                    <span>Streamlit</span>
+                </div>
+            </div>
+
+            <div class="tech-group">
+                <h4>Automação & Infra</h4>
+                <div class="tech-chips">
+                    <span>n8n</span>
+                    <span>Docker</span>
+                    <span>APIs</span>
+                    <span>Redis</span>
+                </div>
+            </div>
+
+            <div class="tech-group">
+                <h4>Metodologias</h4>
+                <div class="tech-chips">
+                    <span>Scrum</span>
+                    <span>Git</span>
+                    <span>Documentação Técnica</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projetos -->
+        <section class="projects-section fade-in delay-4">
+            <div class="section-header">
+                <i class="ph ph-folder-open"></i>
+                <h3>Projetos</h3>
+            </div>
+            <div class="projects-grid">
+                <a href="https://wa.me/5516996381292" target="_blank" class="project-card">
+                    <div class="project-header">
+                        <div class="project-title-group">
+                            <h4>Nexus</h4>
+                            <span class="status-badge">Em produção</span>
+                        </div>
+                        <i class="ph ph-arrow-up-right"></i>
+                    </div>
+                    <p>Automação com IA. Integração com WhatsApp API, n8n, OpenAI, Docker, Redis e processamento de mensagens em tempo real.</p>
+                    <div class="project-tech">
+                        <span>n8n</span><span>OpenAI</span><span>Docker</span><span>Redis</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/gabrielnagatanicampos/invest-system" target="_blank" class="project-card">
+                    <div class="project-header">
+                        <div class="project-title-group">
+                            <h4>Invest System</h4>
+                            <span class="status-badge">Em desenvolvimento</span>
+                        </div>
+                        <i class="ph ph-arrow-up-right"></i>
+                    </div>
+                    <p>Sistema financeiro em Python e Streamlit, com cotações em tempo real via Yahoo Finance, tratamento de dados e análises com IA.</p>
+                    <div class="project-tech">
+                        <span>Python</span><span>Streamlit</span><span>Dados</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/gabrielnagatanicampos/DataWarehouse" target="_blank" class="project-card">
+                    <div class="project-header">
+                        <div class="project-title-group">
+                            <h4>Data Warehouse de Vendas</h4>
+                            <span class="status-badge">Em desenvolvimento</span>
+                        </div>
+                        <i class="ph ph-arrow-up-right"></i>
+                    </div>
+                    <p>Estruturação de dados no SQL Server com processos ETL avançados e modelagem dimensional nas camadas Bronze, Silver e Gold.</p>
+                    <div class="project-tech">
+                        <span>SQL Server</span><span>ETL</span><span>Modelagem</span>
+                    </div>
+                </a>
+
+                <a href="https://www.notion.so/Aplicativo-Universit-rio-Localiza-o-e-Comunica-o-bc006a3beb3f83b481ee01e369980418?source=copy_link" target="_blank" class="project-card">
+                    <div class="project-header">
+                        <div class="project-title-group">
+                            <h4>UniFind</h4>
+                            <span class="status-badge">Publicado na Revista UMC</span>
+                        </div>
+                        <i class="ph ph-arrow-up-right"></i>
+                    </div>
+                    <p>Projeto acadêmico com foco na documentação de requisitos ágeis e atuação como Scrum Master, publicado na revista Summit UMC.</p>
+                    <div class="project-tech">
+                        <span>Scrum</span><span>Engenharia de Requisitos</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Reconhecimentos -->
+        <section class="recognitions-section fade-in delay-5">
+            <div class="section-header">
+                <i class="ph ph-medal"></i>
+                <h3>Reconhecimentos & Cursos</h3>
+            </div>
+            <ul class="recognitions-list">
+                <li><strong>CPA 20</strong> (ANBIMA)</li>
+                <li><strong>Artigo publicado na Revista Científica UMC</strong>: categoria Tecnologia e Inovação (UniFind)</li>
+                <li><strong>Finance TechBoost</strong>: Inteligência Artificial e Análise de Dados (80h)</li>
+                <li><strong>Fundamentos de Python para Análise de Dados</strong> da Data Science Academy</li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <footer class="fade-in delay-5">
+            <div class="footer-line"></div>
+            <div class="footer-content">
+                <span>Gabriel Nagatani Campos © 2026</span>
+                <span>ORCID: <a href="https://orcid.org/0009-0001-8821-5502" target="_blank">0009-0001-8821-5502</a></span>
+            </div>
+            
+            <div class="footer-journey-element">
+                <span class="route-point">[CODE]</span>
+                <span class="route-line"></span>
+                <span class="route-point">[BUILD]</span>
+                <span class="route-line"></span>
+                <span class="route-point">[EXPLORE]</span>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // Interactive Elegant Background Canvas - Enhanced Grid & Particles
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * height; // initial random distribution
+            }
+            
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + 10;
+                this.speed = (Math.random() * 0.3) + 0.1;
+                this.radius = (Math.random() * 1.5) + 0.5;
+                // Subtle blue/cyan color logic
+                const isCyan = Math.random() > 0.5;
+                this.color = isCyan ? '56, 189, 248' : '22, 119, 255';
+                this.opacity = (Math.random() * 0.15) + 0.05; // 0.05 to 0.20
+            }
+
+            update() {
+                this.y -= this.speed;
+                if (this.y < -10) this.reset();
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        // Init objects
+        for (let i = 0; i < 40; i++) {
+            particles.push(new Particle());
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw abstract dotted grid faintly
+            const step = 40;
+            ctx.fillStyle = 'rgba(56, 189, 248, 0.04)'; // Extremely faint dots
+            for(let x = 0; x < width; x += step) {
+                for(let y = 0; y < height; y += step) {
+                    ctx.fillRect(x, y, 1, 1);
+                }
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
