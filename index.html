@@ -167,38 +167,54 @@
         }
 
         h1 {
-            font-size: 1.75rem;
-            font-weight: 600;
+            font-size: 1.9rem;
+            font-weight: 700;
             letter-spacing: -0.02em;
-            margin-bottom: 4px;
-            color: #ffffff;
+            margin-bottom: 6px;
+            background: linear-gradient(90deg, #ffffff, #38BDF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
         }
 
         h2 {
             font-size: 1.1rem;
             font-weight: 400;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
-        .hero-quote {
-            font-size: 0.95rem;
+        .closing-quote {
+            font-size: 1.1rem;
             color: var(--text-main);
-            margin-bottom: 28px;
-            max-width: 95%;
-            line-height: 1.6;
-            border-left: 2px solid var(--border-hover);
-            padding-left: 16px;
+            text-align: center;
             font-style: italic;
             opacity: 0.9;
+            margin: 60px auto 20px;
+            max-width: 90%;
+            line-height: 1.6;
         }
 
-        .hero-quote footer {
+        .closing-quote footer {
             font-style: normal;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--accent-cyan);
-            margin-top: 8px;
+            margin-top: 16px;
             font-family: var(--font-mono);
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .closing-quote footer::before,
+        .closing-quote footer::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--accent-cyan);
+            opacity: 0.4;
         }
 
         .info-badges {
@@ -640,11 +656,6 @@
             
             <h1>GABRIEL NAGATANI CAMPOS</h1>
             <h2>Estudante de Engenharia de Software</h2>
-            
-            <blockquote class="hero-quote">
-                "I don't wait to understand everything before I build. I build to understand."
-                <footer>Gabriel Nagatani Campos</footer>
-            </blockquote>
 
             <div class="info-badges">
                 <span class="info-badge">ENGENHARIA DE SOFTWARE</span>
@@ -814,6 +825,12 @@
                 <li><strong>Fundamentos de Python para Análise de Dados</strong> da Data Science Academy</li>
             </ul>
         </section>
+
+        <!-- Frase de Fechamento -->
+        <blockquote class="closing-quote fade-in delay-6">
+            "I don't wait to understand everything before I build.<br>I build to understand."
+            <footer>GABRIEL NAGATANI CAMPOS</footer>
+        </blockquote>
 
         <!-- Footer -->
         <footer class="fade-in delay-6">
