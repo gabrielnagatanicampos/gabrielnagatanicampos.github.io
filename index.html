@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabriel Nagatani Campos | Software Engineering & Journey</title>
+    <title>Gabriel Nagatani Campos | Dados, SQL e Gestão Ágil</title>
     
     <!-- SEO & Open Graph Tags -->
-    <meta name="description" content="Portfólio Técnico de Gabriel Nagatani. Projetos em Python, Engenharia de Software, Automação, IA e Dados.">
-    <meta property="og:title" content="Gabriel Nagatani | Software Engineering">
-    <meta property="og:description" content="Acesse meu portfólio técnico, currículo e projetos de engenharia de software e análise de dados.">
+    <meta name="description" content="Portfólio de Gabriel Nagatani Campos. Dados, SQL, análise de requisitos e gestão ágil, com projetos em Python.">
+    <meta property="og:title" content="Gabriel Nagatani Campos | Dados, SQL e Gestão Ágil">
+    <meta property="og:description" content="Projetos em dados, SQL, requisitos e Scrum. Estudante de Engenharia de Software buscando estágio.">
     <meta property="og:image" content="https://gabrielnagatanicampos.github.io/profile.jpeg">
     <meta property="og:url" content="https://gabrielnagatanicampos.github.io">
     <meta property="og:type" content="website">
@@ -180,10 +180,7 @@
             font-weight: 700;
             letter-spacing: -0.02em;
             margin-bottom: 6px;
-            background: linear-gradient(90deg, #ffffff, #38BDF8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+            color: #E5EDFF;
         }
 
         h2 {
@@ -288,7 +285,7 @@
             transform: scale(1.1);
         }
 
-        /* Featured Link (Telegram) */
+        /* Featured Link */
         .featured-link {
             display: flex;
             align-items: center;
@@ -472,6 +469,15 @@
 
         .project-card:hover::before {
             opacity: 1;
+        }
+
+        .project-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+            margin-bottom: 16px;
         }
 
         .project-header {
@@ -660,17 +666,17 @@
             
             <div class="availability">
                 <span class="status-dot"></span>
-                <span class="status-text">Buscando estágio em backend, dados ou infra</span>
+                <span class="status-text">Buscando estágio em dados, requisitos e gestão ágil</span>
             </div>
             
             <h1>GABRIEL NAGATANI CAMPOS</h1>
-            <h2>Estudante de Engenharia de Software</h2>
+            <h2>Dados, SQL e Backend Python | Requisitos e Gestão Ágil</h2>
 
             <div class="info-badges">
                 <span class="info-badge">ENGENHARIA DE SOFTWARE</span>
                 <span class="info-badge">UMC</span>
                 <span class="info-badge">MOGI DAS CRUZES, SP</span>
-                <span class="info-badge highlight">PYTHON • SQL • DADOS</span>
+                <span class="info-badge highlight">SQL • DADOS • SCRUM</span>
             </div>
         </header>
 
@@ -693,14 +699,14 @@
             </a>
         </section>
 
-        <!-- Destaque: Canal Telegram -->
-        <a href="https://t.me/nagatanitech" target="_blank" class="featured-link fade-in delay-2">
+        <!-- Destaque: Invest System -->
+        <a href="https://github.com/gabrielnagatanicampos/invest-system-showcase" target="_blank" class="featured-link fade-in delay-2">
             <div class="featured-icon">
-                <i class="ph-fill ph-telegram-logo"></i>
+                <i class="ph-fill ph-kanban"></i>
             </div>
             <div class="featured-text">
-                <h3>Nagatani Tech | Setup & Ofertas</h3>
-                <p>Canal exclusivo com promoções de tecnologia, hardware e equipamentos que utilizo.</p>
+                <h3>Invest System | 4ª edição do UMC Summit</h3>
+                <p>Projeto próprio, selecionado na categoria Inovação. Atuei como Product Owner e pratiquei Scrum.</p>
             </div>
             <i class="ph ph-arrow-right featured-arrow"></i>
         </a>
@@ -712,7 +718,7 @@
                 <h3>Sobre</h3>
             </div>
             <p class="about-text">
-                Estudante de Engenharia de Software (UMC) movido pela vontade de entender como as coisas funcionam por trás da tela e resolver problemas reais com código. Na universidade, elaborei a documentação técnica de um aplicativo a partir de requisitos de engenharia de software, trabalho selecionado para a revista científica da instituição, e hoje levo essa base para a prática em projetos pessoais: um sistema de gestão de investimentos e um assistente de atendimento com Inteligência Artificial no WhatsApp para clínicas odontológicas, em pré-lançamento. Tenho experiência em Python, SQL, integração de APIs e desenvolvimento backend. Busco uma oportunidade de estágio em Tecnologia para continuar aprendendo na prática.
+                Estudante de Engenharia de Software (UMC) que gosta de transformar uma dúvida de negócio em dado, requisito e entrega. Levanto requisitos, modelo dados em SQL, escrevo critérios de aceite e conduzo o time com Scrum: fui Scrum Master no UniFind, cuja documentação técnica foi selecionada para a revista científica da universidade, e Product Owner no Invest System. Boa parte do código dos meus projetos foi construída com apoio de IA generativa; eu defino requisitos e reviso. Busco estágio em dados, análise de requisitos ou gestão ágil.
             </p>
         </section>
 
@@ -724,34 +730,38 @@
             </div>
             
             <div class="tech-group">
-                <h4>Dados & Engenharia</h4>
+                <h4>Dados</h4>
                 <div class="tech-chips">
-                    <span>Python</span>
                     <span>SQL</span>
+                    <span>T-SQL</span>
                     <span>SQL Server</span>
+                    <span>MySQL</span>
+                    <span>PostgreSQL</span>
+                    <span>Power BI</span>
+                    <span>Excel</span>
                     <span>Pandas</span>
-                    <span>ETL</span>
-                    <span>Data Warehouse</span>
-                    <span>Streamlit</span>
                 </div>
             </div>
 
             <div class="tech-group">
-                <h4>Automação & Infra</h4>
-                <div class="tech-chips">
-                    <span>n8n</span>
-                    <span>Docker</span>
-                    <span>APIs</span>
-                    <span>Redis</span>
-                </div>
-            </div>
-
-            <div class="tech-group">
-                <h4>Metodologias</h4>
+                <h4>Requisitos &amp; Gestão</h4>
                 <div class="tech-chips">
                     <span>Scrum</span>
-                    <span>Git</span>
-                    <span>Documentação Técnica</span>
+                    <span>Kanban</span>
+                    <span>Requisitos funcionais e não funcionais</span>
+                    <span>Documentação</span>
+                    <span>Notion</span>
+                </div>
+            </div>
+
+            <div class="tech-group">
+                <h4>Backend</h4>
+                <div class="tech-chips">
+                    <span>Python</span>
+                    <span>FastAPI</span>
+                    <span>Streamlit</span>
+                    <span>Docker</span>
+                    <span>n8n</span>
                 </div>
             </div>
         </section>
@@ -764,6 +774,7 @@
             </div>
             <div class="projects-grid">
                 <a href="https://github.com/gabrielnagatanicampos/marfim-showcase" target="_blank" class="project-card">
+                    <img class="project-img" src="assets/marfim-hoje.png" alt="Tela Hoje do MARFIM, com dados fictícios" loading="lazy">
                     <div class="project-header">
                         <div class="project-title-group">
                             <h4>MARFIM (antes Nexus)</h4>
@@ -771,13 +782,14 @@
                         </div>
                         <i class="ph ph-arrow-up-right"></i>
                     </div>
-                    <p>Assistente de IA no WhatsApp para clínicas odontológicas, em pré-lançamento. FastAPI, PostgreSQL com RLS, n8n, OpenAI, Docker, Redis. Validado por simulação e testes.</p>
+                    <p>Assistente virtual para clínicas odontológicas, em pré-lançamento e ainda sem clientes. Agenda, pacientes, conversas e equipe, com cada clínica vendo só os próprios dados. Validado por simulação e testes.</p>
                     <div class="project-tech">
-                        <span>FastAPI</span><span>n8n</span><span>PostgreSQL</span><span>Redis</span>
+                        <span>Python</span><span>FastAPI</span><span>PostgreSQL</span><span>n8n</span>
                     </div>
                 </a>
 
                 <a href="https://github.com/gabrielnagatanicampos/invest-system-showcase" target="_blank" class="project-card">
+                    <img class="project-img" src="assets/invest-kanban.png" alt="Quadro Kanban do Invest System com as histórias de usuário" loading="lazy">
                     <div class="project-header">
                         <div class="project-title-group">
                             <h4>Invest System</h4>
@@ -785,9 +797,9 @@
                         </div>
                         <i class="ph ph-arrow-up-right"></i>
                     </div>
-                    <p>Rebalanceamento de carteira em Python e Streamlit, com cotações via Yahoo Finance, defesa em camadas contra prompt injection e failover entre LLMs. Projeto próprio, integrado à disciplina de Métodos Ágeis em dupla (Product Owner), com alertas por e-mail e deploy em VPS com auxílio do professor.</p>
+                    <p>Rebalanceamento de carteira em Python e Streamlit, com cotações via Yahoo Finance. Projeto próprio, iniciado antes e levado à disciplina de Métodos Ágeis (UMC) para ampliar funcionalidades, ganhar visão de negócio, ir para a internet e praticar Scrum. Atuei como Product Owner, em dupla, e o projeto foi selecionado para a 4ª edição do Summit, categoria Inovação.</p>
                     <div class="project-tech">
-                        <span>Python</span><span>Streamlit</span><span>Dados</span>
+                        <span>Python</span><span>Streamlit</span><span>Scrum</span>
                     </div>
                 </a>
 
@@ -799,7 +811,7 @@
                         </div>
                         <i class="ph ph-arrow-up-right"></i>
                     </div>
-                    <p>Estruturação de dados no SQL Server com processos ETL e arquitetura Medallion: camadas Bronze e Silver prontas e Gold planejada.</p>
+                    <p>Dados de ERP e CRM no SQL Server, com rotinas de ETL e arquitetura Medallion. Camadas Bronze e Silver prontas.</p>
                     <div class="project-tech">
                         <span>SQL Server</span><span>ETL</span><span>Modelagem</span>
                     </div>
@@ -813,7 +825,7 @@
                         </div>
                         <i class="ph ph-arrow-up-right"></i>
                     </div>
-                    <p>Projeto acadêmico com foco na documentação de requisitos ágeis e atuação como Scrum Master, publicado na revista Summit UMC.</p>
+                    <p>Projeto acadêmico com requisitos funcionais e não funcionais e documentação técnica, com atuação como Scrum Master. Aprovado para a revista científica na 3ª edição do Summit UMC.</p>
                     <div class="project-tech">
                         <span>Scrum</span><span>Engenharia de Requisitos</span>
                     </div>
@@ -837,7 +849,7 @@
 
         <!-- Frase de Fechamento -->
         <blockquote class="closing-quote fade-in delay-6">
-            "I don't wait to understand everything before I build.<br>I build to understand."
+            "Não espero entender tudo antes de construir.<br>Eu construo para entender."
             <footer>GABRIEL NAGATANI CAMPOS</footer>
         </blockquote>
 
