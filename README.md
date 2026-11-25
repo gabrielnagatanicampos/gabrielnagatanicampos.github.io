@@ -2,7 +2,7 @@
 
 Página pessoal publicada em https://gabrielnagatanicampos.github.io
 
-Estudante de Engenharia de Software (UMC), buscando estágio em dados, análise de requisitos e gestão ágil.
+Estudante de Engenharia de Software (UMC), buscando estágio em tecnologia, com início imediato.
 
 ## Projetos em destaque
 
